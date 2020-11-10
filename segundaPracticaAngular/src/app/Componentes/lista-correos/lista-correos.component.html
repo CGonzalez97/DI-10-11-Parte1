@@ -1,0 +1,15 @@
+<p>lista-correos works!</p>
+<table>
+    <tr *ngFor="let correo of correos index as i">
+        <td>
+            <input type="radio" name="leido-{{i}}" [(ngModel)]="correo.leido" [value]=true> Si
+            <input type="radio" name="leido-{{i}}" [(ngModel)]="correo.leido" [value]=false> No
+        </td>
+        <td>{{correo.emisor}}</td>
+        <td>{{correo.titulo}}</td>
+    </tr>
+</table>
+
+<h1>Correo 1, leido?</h1>
+<h3 *ngIf="correos[0].leido">Si</h3>
+<h3 *ngIf="!correos[0].leido">No</h3>
