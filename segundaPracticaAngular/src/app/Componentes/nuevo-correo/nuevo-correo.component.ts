@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
@@ -10,6 +10,8 @@ export class NuevoCorreoComponent implements OnInit {
 
   nuevoCorreo: FormGroup;
   submitted= false;
+  @Input() correo: any;
+  @Output() accionRealizada: EventEmitter<any>= new EventEmitter();
 
   constructor(private formBuilder: FormBuilder) { }
 
@@ -19,6 +21,13 @@ export class NuevoCorreoComponent implements OnInit {
       cuerpo: ['',[Validators.required, Validators.minLength(10)]],
       destinatario: ['',[Validators.required, Validators.email]]
     })
+
+    if(this.correo != undefined){
+      this.nuevoCorreo.patchValue({
+        titulo: 'Re '+ this.correo.titulo,
+        destinatario: this.correo.emisor
+      });
+    }
   }
 
   get formulario(){return this.nuevoCorreo.controls;}
@@ -42,6 +51,7 @@ export class NuevoCorreoComponent implements OnInit {
   onReset(){
     this.submitted=false;
     this.nuevoCorreo.reset;
+    this.accionRealizada.emit();
   }
 
 }

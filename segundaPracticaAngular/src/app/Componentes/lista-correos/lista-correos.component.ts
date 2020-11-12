@@ -8,6 +8,8 @@ import { Component, OnInit } from '@angular/core';
 export class ListaCorreosComponent implements OnInit {
 
   correos:any[];
+  responder:boolean;
+  correoAResponder: any;
 
   constructor() { 
 
@@ -32,6 +34,15 @@ export class ListaCorreosComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  clickResponder(correo){
+    this.responder = !this.clickResponder;
+    this.correoAResponder = correo;
+  }
+
+  accionRespuestaRapida(correo){
+    correo.responder = false;
   }
 
 }
